@@ -15,10 +15,9 @@ namespace App\Entity;
 use Survos\CoreBundle\Entity\RouteParametersInterface;
 use Survos\CoreBundle\Entity\RouteParametersTrait;
 
-class Foo implements MarkingInterface, RouteParametersInterface
+class Foo implements RouteParametersInterface
 {
 use RouteParametersTrait;
-use MarkingTrait;
 
 public function getUniqueParams(): array { 
     return ['fooId' => $this->getFooCode()];
