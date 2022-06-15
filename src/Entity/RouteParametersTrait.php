@@ -15,7 +15,7 @@ trait RouteParametersTrait
     #[Groups(['rp','transitions'])]
     public function getrp(?array $addlParams=[]): array
     {
-        return $this->rp($addlParams);
+        return array_merge($this->getUniqueIdentifiers(), $addlParams);
     }
 
 }
