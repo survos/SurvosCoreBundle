@@ -34,3 +34,7 @@ Combined with survos/maker-bundle, create a param converter
 ```bash
 bin/console survos:make:param-converter Foo
 ```
+
+## Helper Tasks
+
+echo "SYMFONY_DEPRECATIONS_HELPER=weak" >> .env

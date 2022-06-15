@@ -2,6 +2,7 @@
 
 namespace Survos\CoreBundle\Entity;
 
+use JetBrains\PhpStorm\Deprecated;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 trait RouteParametersTrait
@@ -12,8 +13,15 @@ trait RouteParametersTrait
     }
 
     #[Groups(['rp','transitions'])]
-    public function getRP(?array $addlParams=[]): array
+    public function rp(?array $addlParams=[]): array
     {
         return array_merge($this->getUniqueIdentifiers(), $addlParams);
     }
+
+    #[Deprecated]
+    public function getrp(?array $addlParams=[]): array
+    {
+        return $this->rp($addlParams);
+    }
+
 }
