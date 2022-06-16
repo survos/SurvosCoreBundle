@@ -29,4 +29,10 @@ trait RouteParametersTrait
 //        $shortName = strtolower( (new \ReflectionClass(get_called_class()))->getShortName() );
         return $shortName;
     }
+
+    public function __toString(): string
+    {
+        return join('-', array_values($this->getUniqueIdentifiers()));
+    }
+
 }
