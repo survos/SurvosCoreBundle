@@ -1,8 +1,8 @@
 {
   "name": "survos/core-bundle",
   "type": "symfony-bundle",
-  "description": "",
-  "keywords": ["symfony-ux", "symfony6"],
+  "description": "Traits and Interfaces common to other Survos bundles",
+  "keywords": ["symfony6"],
 
   "license": "MIT",
   "require": {
