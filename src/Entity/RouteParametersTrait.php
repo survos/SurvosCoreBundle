@@ -30,9 +30,4 @@ trait RouteParametersTrait
         return $shortName;
     }
 
-    public function __toString(): string
-    {
-        return join('-', array_values($this->getUniqueIdentifiers()));
-    }
-
 }
