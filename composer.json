@@ -1,39 +1,45 @@
 {
-  "name": "survos/core-bundle",
-  "type": "symfony-bundle",
-  "description": "Traits and Interfaces common to other Survos bundles",
-  "keywords": ["symfony6"],
-
-  "license": "MIT",
-  "require": {
-    "php": "^8.1",
-    "symfony/config": "^6.1.0",
-    "symfony/dependency-injection": "^6.1.0",
-    "symfony/http-kernel": "^6.1.0",
-    "symfony/serializer": "^6.1.0",
-    "twig/twig": "^3.4",
-    "symfony/string": "^6.1.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Survos\\CoreBundle\\": "src/"
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "1.0-dev"
+    "name": "survos/core-bundle",
+    "type": "symfony-bundle",
+    "description": "Traits and Interfaces common to other Survos bundles",
+    "keywords": ["symfony6"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "symfony/config": "^6.1.0",
+        "symfony/dependency-injection": "^6.1.0",
+        "symfony/http-kernel": "^6.1.0",
+        "symfony/serializer": "^6.1.0",
+        "twig/twig": "^3.4",
+        "symfony/string": "^6.1.0"
     },
-    "symfony": {
-      "require": "^6.1.0"
+    "autoload": {
+        "psr-4": {
+            "Survos\\CoreBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        },
+        "symfony": {
+            "require": "^6.1.0"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "symfony/browser-kit": "^6.1.0",
+        "symfony/framework-bundle": "^6.1.0",
+        "symfony/phpunit-bridge": "^6.1.0",
+        "symfony/twig-bundle": "^6.1.0",
+        "symfony/var-dumper": "^6.1.0",
+        "symfony/webpack-encore-bundle": "^1.11"
+    },
+    "conflict": {
+        "survos/barcode-bundle": "<1.2.2",
+        "survos/second-package": "<1.2.2",
+        "survos/faker-bundle": "<1.2.2",
+        "survos/tree-bundle": "<1.2.2",
+        "survos/first-package": "<1.2.2"
     }
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^1.8",
-    "symfony/browser-kit": "^6.1.0",
-    "symfony/framework-bundle": "^6.1.0",
-    "symfony/phpunit-bridge": "^6.1.0",
-    "symfony/twig-bundle": "^6.1.0",
-    "symfony/var-dumper": "^6.1.0",
-    "symfony/webpack-encore-bundle": "^1.11"
-  }
 }
