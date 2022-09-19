@@ -36,10 +36,10 @@
         "symfony/webpack-encore-bundle": "^1.11"
     },
     "conflict": {
-        "survos/barcode-bundle": "<1.2.2",
-        "survos/second-package": "<1.2.2",
-        "survos/faker-bundle": "<1.2.2",
-        "survos/tree-bundle": "<1.2.2",
-        "survos/first-package": "<1.2.2"
+        "survos/barcode-bundle": "<1.2.3",
+        "survos/second-package": "<1.2.3",
+        "survos/faker-bundle": "<1.2.3",
+        "survos/tree-bundle": "<1.2.3",
+        "survos/first-package": "<1.2.3"
     }
 }
