@@ -15,5 +15,4 @@ use function Symfony\Component\String\u;
 abstract class SurvosCoreEntity implements RouteParametersInterface
 {
     use RouteParametersTrait;
-
 }

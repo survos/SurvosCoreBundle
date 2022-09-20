@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 class SurvosCoreBundle extends AbstractBundle
 {
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
@@ -17,17 +16,15 @@ class SurvosCoreBundle extends AbstractBundle
 
         // twig classes
 
-/*
-$definition = $builder
-->autowire('survos.barcode_twig', BarcodeTwigExtension::class)
-->addTag('twig.extension');
+        /*
+        $definition = $builder
+        ->autowire('survos.barcode_twig', BarcodeTwigExtension::class)
+        ->addTag('twig.extension');
 
-$definition->setArgument('$widthFactor', $config['widthFactor']);
-$definition->setArgument('$height', $config['height']);
-$definition->setArgument('$foregroundColor', $config['foregroundColor']);
-*/
-
-
+        $definition->setArgument('$widthFactor', $config['widthFactor']);
+        $definition->setArgument('$height', $config['height']);
+        $definition->setArgument('$foregroundColor', $config['foregroundColor']);
+        */
     }
 
     public function configure(DefinitionConfigurator $definition): void
@@ -43,5 +40,4 @@ $definition->setArgument('$foregroundColor', $config['foregroundColor']);
 //            ->integerNode('min_sunshine')->defaultValue(3)->end()
             ->end();
     }
-
 }

@@ -3,7 +3,6 @@
 
 namespace Survos\CoreBundle\Traits;
 
-
 trait QueryBuilderHelperTrait
 {
     public function getCounts($field): array
@@ -27,7 +26,7 @@ trait QueryBuilderHelperTrait
         $groupByFields = [$alias . '.' . $field];
         $qb = $this->createQueryBuilder($alias);
 
-        foreach ($orderBy as $orderByField=>$sortOrder) {
+        foreach ($orderBy as $orderByField => $sortOrder) {
             $selectFields[] = "$alias.$orderByField";
             $groupByFields[] = "$alias.$orderByField";
             $qb
@@ -48,16 +47,13 @@ trait QueryBuilderHelperTrait
         return $counts;
     }
 
-
-
-
-    public function findBygetCountsByField($field = 'marking', $filters = [], ?string $idField='id'): array
+    public function findBygetCountsByField($field = 'marking', $filters = [], ?string $idField = 'id'): array
     {
         $qb = $this->createQueryBuilder('article')
             // ->where("h.currentState = 'new'")
-            ->select(sprintf('COUNT(article%s) as c, article.%s as field ', $idField ? '.'.$idField:'', $field));
+            ->select(sprintf('COUNT(article%s) as c, article.%s as field ', $idField ? '.' . $idField : '', $field));
 
-        foreach ($filters as $table=>$value) {
+        foreach ($filters as $table => $value) {
             if ($value = $filters[$table]) {
                 $qb->join('article.' . $table, $table);
                 if (true || $value) {
@@ -70,13 +66,11 @@ trait QueryBuilderHelperTrait
         $markingCounts = $qb
             ->groupBy('article.' . $field)
             ->getQuery()
-            ->getResult() ;
+            ->getResult();
 
         foreach ($markingCounts as $x) {
             $counts[$x['field']] = $x['c'];
         }
         return $counts;
     }
-
-
 }
