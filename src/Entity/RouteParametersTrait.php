@@ -8,10 +8,11 @@ use function Symfony\Component\String\u;
 
 trait RouteParametersTrait
 {
-    //    public function getUniqueIdentifiers(): array
-    //    {
-    //        return [strtolower( (new \ReflectionClass($this))->getShortName() ) . 'Id' => $this->getId()];
-    //    }
+
+    public function getUniqueIdentifiers(): array
+    {
+        return [strtolower( (new \ReflectionClass($this))->getShortName() ) . 'Id' => $this->getId()];
+    }
 
     #[Groups(['rp', 'transitions'])]
     public function getrp(?array $addlParams = []): array
