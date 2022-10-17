@@ -36,21 +36,20 @@
         "symfony/webpack-encore-bundle": "^1.11"
     },
     "conflict": {
-        "survos/barcode-bundle": "<1.2.17",
-        "survos/second-package": "<1.2.7",
-        "survos/faker-bundle": "<1.2.17",
-        "survos/tree-bundle": "<1.2.17",
-        "survos/first-package": "<1.2.7",
-        "survos/maker-bundle": "<1.2.17",
-        "survos/html-prettify-bundle": "<1.2.17",
-        "survos/api-grid-bundle": "<1.2.17",
-        "survos/bootstrap-bundle": "<1.2.17",
-        "survos/inspection-bundle": "<1.2.17",
-        "survos/doc-bundle": "<1.2.17",
-        "survos/grid-bundle": "<1.2.17",
-        "survos/auth-bundle": "<1.2.17",
-        "survos/workflow-helper-bundle": "<1.2.17",
-        "survos/crawler-bundle": "<1.2.17",
-        "survos/location-bundle": "<1.2.17"
+        "survos/barcode-bundle": "<1.2.21",
+        "survos/faker-bundle": "<1.2.21",
+        "survos/tree-bundle": "<1.2.21",
+        "survos/maker-bundle": "<1.2.21",
+        "survos/html-prettify-bundle": "<1.2.21",
+        "survos/api-grid-bundle": "<1.2.21",
+        "survos/bootstrap-bundle": "<1.2.21",
+        "survos/inspection-bundle": "<1.2.21",
+        "survos/doc-bundle": "<1.2.21",
+        "survos/grid-bundle": "<1.2.21",
+        "survos/auth-bundle": "<1.2.21",
+        "survos/workflow-helper-bundle": "<1.2.21",
+        "survos/crawler-bundle": "<1.2.21",
+        "survos/location-bundle": "<1.2.21",
+        "survos/command-bundle": "<1.2.21"
     }
 }
