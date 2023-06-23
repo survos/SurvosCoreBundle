@@ -34,8 +34,9 @@ class SurvosCoreBundle extends AbstractBundle
             ->scalarNode('direction')->defaultValue('LR')->end()
             ->scalarNode('base_layout')->defaultValue('base.html.twig')->end()
             ->arrayNode('entities')
-            ->scalarPrototype()
-            ->end()->end()
+                ->scalarPrototype()
+            ->end()
+            ->end()
             ->booleanNode('enabled')->defaultTrue()->end()
 //            ->integerNode('min_sunshine')->defaultValue(3)->end()
             ->end();
