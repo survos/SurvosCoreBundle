@@ -14,7 +14,7 @@ trait HasAssetMapperTrait
     public function isAssetMapperAvailable(ContainerBuilder $container): bool
     {
         if (!interface_exists(AssetMapperInterface::class)) {
-            assert(false, 'for now, add the asset mapper component');
+//            assert(false, 'for now, add the asset mapper component');
             return false;
         }
 
