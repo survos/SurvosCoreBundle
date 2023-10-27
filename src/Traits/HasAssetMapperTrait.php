@@ -5,6 +5,7 @@ namespace Survos\CoreBundle\Traits;
 
 use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,6 @@ trait HasAssetMapperTrait
     public function isAssetMapperAvailable(ContainerBuilder $container): bool
     {
         if (!interface_exists(AssetMapperInterface::class)) {
-//            assert(false, 'for now, add the asset mapper component');
             return false;
         }
 
@@ -29,5 +29,31 @@ trait HasAssetMapperTrait
         assert(is_file($file), $file);
         return is_file($file);
     }
+
+    static public function getPrefix(): string
+    {
+        throw new \Exception("setPrefix() to something like @survos/bundle-name, maybe someday we can figure this out automaticallly.");
+    }
+
+    public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+
+        if (!$this->isAssetMapperAvailable($builder)) {
+            return;
+        }
+
+        // @todo: make path configurable
+        $dir = realpath(__DIR__.'/../assets/');
+        assert(file_exists($dir), $dir);
+
+        $builder->prependExtensionConfig('framework', [
+            'asset_mapper' => [
+                'paths' => [
+                    $dir => self::getPrefix()
+                ],
+            ],
+        ]);
+    }
+
 
 }

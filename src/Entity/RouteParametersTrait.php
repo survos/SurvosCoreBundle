@@ -2,7 +2,6 @@
 
 namespace Survos\CoreBundle\Entity;
 
-use JetBrains\PhpStorm\Deprecated;
 use Symfony\Component\Serializer\Annotation\Groups;
 use function Symfony\Component\String\u;
 
