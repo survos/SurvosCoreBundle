@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait HasAssetMapperTrait
 {
+    protected string $extensionPrefix = '';
+
     public function isAssetMapperAvailable(ContainerBuilder $container): bool
     {
         if (!interface_exists(AssetMapperInterface::class)) {
@@ -30,9 +32,10 @@ trait HasAssetMapperTrait
         return is_file($file);
     }
 
-    static public function getPrefix(): string
+    public function getPaths(): array
     {
-        throw new \Exception("setPrefix() to something like @survos/bundle-name, maybe someday we can figure this out automaticallly.");
+        throw new \Exception("getPaths() must be set, e.g. @survos/code. " . static::class);
+        return [];
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
@@ -42,15 +45,9 @@ trait HasAssetMapperTrait
             return;
         }
 
-        // @todo: make path configurable
-        $dir = realpath(__DIR__.'/../assets/');
-        assert(file_exists($dir), $dir);
-
         $builder->prependExtensionConfig('framework', [
             'asset_mapper' => [
-                'paths' => [
-                    $dir => self::getPrefix()
-                ],
+                'paths' => $this->getPaths(),
             ],
         ]);
     }

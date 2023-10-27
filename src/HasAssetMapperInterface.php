@@ -8,5 +8,5 @@ interface HasAssetMapperInterface
 {
     public function isAssetMapperAvailable(ContainerBuilder $container): bool;
 
-    public static function getPrefix(): string;
+    public function getPaths(): array;
 }
