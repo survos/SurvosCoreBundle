@@ -8,5 +8,5 @@ interface RouteParametersInterface
 
     public function getrp(?array $addlParams = []): array;
 
-    public static function getPrefix(string $class = null): string;
+    public static function getClassnamePrefix(string $class = null): string;
 }
