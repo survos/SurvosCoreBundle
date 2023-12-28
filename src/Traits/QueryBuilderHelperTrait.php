@@ -5,7 +5,7 @@ namespace Survos\CoreBundle\Traits;
 
 trait QueryBuilderHelperTrait
 {
-    public function getCounts($field): array
+    public function getCounts(string $field): array
     {
         $results = $this->createQueryBuilder('s')
             ->groupBy('s.' . $field)
@@ -14,8 +14,21 @@ trait QueryBuilderHelperTrait
             ->getArrayResult();
         $counts = [];
         foreach ($results as $r) {
-            $counts[$r[$field]] = $r['count'];
+            assert(is_string($field));
+            assert(is_array($r));
+//            dump($field, $r, $r['count'], $r['field']);
+            $key = $r[$field]??''; // not really...
+            if (is_array($key)) {
+                continue; // doctrine can't handle arrays for facets, just scalars
+                dd($key, $field, $r);
+            }
+
+            $count = $r['count'];
+            assert(is_integer($key) || is_string($key), json_encode($key));
+            assert(is_integer($count));
+            $counts[$key] = $count;
         }
+//        dd($counts);
 
         return $counts;
     }
