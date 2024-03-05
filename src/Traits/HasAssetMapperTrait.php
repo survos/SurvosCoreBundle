@@ -36,6 +36,11 @@ trait HasAssetMapperTrait
     {
         throw new \Exception("getPaths() must be set, e.g. @survos/code. " . static::class);
         return [];
+        // usually something like
+        $dir = realpath(__DIR__ . '/../assets/');
+        assert(file_exists($dir), $dir);
+        return [$dir = '@survos/pwa-extra'];
+
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
