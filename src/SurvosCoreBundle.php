@@ -2,6 +2,7 @@
 
 namespace Survos\CoreBundle;
 
+use Survos\CoreBundle\Service\SurvosUtils;
 use Survos\CoreBundle\Twig\TwigExtension;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,6 +20,10 @@ class SurvosCoreBundle extends AbstractBundle
             ->autowire('survos.core_twig', TwigExtension::class)
             ->addTag('twig.extension');
 
+        $builder
+            ->autowire(SurvosUtils::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true);
     }
 
     public function configure(DefinitionConfigurator $definition): void
@@ -27,6 +32,7 @@ class SurvosCoreBundle extends AbstractBundle
             ->children()
             // enable the twig extension?
                 ->booleanNode('enabled')->defaultTrue()->end()
+                ->booleanNode('dd')->defaultTrue()->end()
             ->end();
     }
 }
