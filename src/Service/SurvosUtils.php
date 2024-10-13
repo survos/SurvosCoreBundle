@@ -220,4 +220,34 @@ class SurvosUtils
         }
         return $output;
     }
+
+    // https://stackoverflow.com/questions/4352203/any-php-function-that-will-strip-properties-of-an-object-that-are-null
+    public static function cleanNullsOfObject(&$object) {
+        foreach ($object as $property => &$value) {
+            if (is_object($value)) {
+                self::cleanNullsOfObject($value);
+                if (empty(get_object_vars($value))) {
+                    unset($object->$property);
+                }
+            }
+            // check for array of objects
+            if (is_array($value) && array_is_list($value)) {
+                foreach ($value as $val) {
+                    if (is_object($val)) {
+                        self::cleanNullsOfObject($val);
+                    }
+                }
+
+            }
+//            if (is_array($value) && is_object($value[0])) {
+//                foreach ($value as $val) {
+//                    self::cleanNullsOfObject($val);
+//                }
+//            }
+            if (is_null($value) || ( (is_string($value) && $value === '') || is_array($value) && empty($value))) {
+                unset($object->$property);
+            }
+        }
+    }
+
 }
