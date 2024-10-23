@@ -162,8 +162,11 @@ class SurvosUtils
     }
 
 
-    public static function assertKeyExists($key, array $array, string $message = '')
+    public static function assertKeyExists($key, array|object $array, string $message = '')
     {
+        if (is_object($array)) {
+            $array = (array)$array;
+        }
         assert(array_key_exists($key, $array), self::missingKey($key, $array) . "\n$message");
     }
 
