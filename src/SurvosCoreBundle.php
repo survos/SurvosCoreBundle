@@ -2,6 +2,7 @@
 
 namespace Survos\CoreBundle;
 
+use Survos\CoreBundle\Request\ParameterResolver;
 use Survos\CoreBundle\Service\SurvosUtils;
 use Survos\CoreBundle\Twig\TwigExtension;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
@@ -24,6 +25,15 @@ class SurvosCoreBundle extends AbstractBundle
             ->autowire(SurvosUtils::class)
             ->setAutoconfigured(true)
             ->setAutowired(true);
+
+        $builder
+            ->autowire(ParameterResolver::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true)
+            ->addTag('controller.argument_value_resolver', [
+                'name' => 'ParameterResolver',
+                'priority' => 200,
+            ]);
     }
 
     public function configure(DefinitionConfigurator $definition): void
