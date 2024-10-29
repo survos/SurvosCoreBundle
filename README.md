@@ -2,9 +2,12 @@
 
 Symfony Bundle with interfaces, traits, models and services needed by more than one Survos components.  For example, Model\Column is used by grid, api-grid and simple-datatables.  RouteParametersInterface is used by tree and the griid bundles.
 
+
+https://github.com/symfony/symfony/issues/20083
+
+
 ```bash
-composer config repositories.survos_core '{"type": "path", "url": "/home/tac/survos/bundles/core-bundle"}'
-composer req survos/core-bundle:*@dev
+composer req survos/core-bundle
 ```
 
 ```php
