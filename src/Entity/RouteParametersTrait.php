@@ -2,12 +2,12 @@
 
 namespace Survos\CoreBundle\Entity;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
+
 use function Symfony\Component\String\u;
 
 trait RouteParametersTrait
 {
-
 //    public function getId(): int|string
 //    {
 //        throw new \Exception("you must implement getId() to use a default unique parameters in " . $this::class);
@@ -28,11 +28,11 @@ trait RouteParametersTrait
         if (!method_exists($this, 'getId')) {
             throw new \Exception("you must implement getId() to use a default unique parameters in " . $this::class);
         }
-        return [strtolower( (new \ReflectionClass($this))->getShortName() ) . 'Id' => $this->getId()];
+        return [strtolower((new \ReflectionClass($this))->getShortName()) . 'Id' => $this->getId()];
     }
 
     #[Groups(['rp', 'transitions', 'searchable'])]
-    public function getrp(?array $addlParams = []): array
+    public function getRp(?array $addlParams = []): array
     {
         return array_merge($this->getUniqueIdentifiers(), $addlParams);
     }

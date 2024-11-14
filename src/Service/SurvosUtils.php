@@ -38,7 +38,7 @@ class SurvosUtils
         return $filename;
     }
 
-    public function flatten(array &$messages, array $subnode = null, $path = null)
+    public function flatten(array &$messages, array|null $subnode = null, string|null $path = null)
     {
         if (null === $subnode) {
             $subnode = &$messages;
