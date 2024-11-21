@@ -1,0 +1,58 @@
+name: seo-bundle-CI
+on:
+  [push, pull_request]
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+    name: PHPStan
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: composer install
+        run: composer install
+      - name: PHPStan
+        run: composer phpstan
+        env:
+          REQUIRE_DEV: true
+#  cs-fixer:
+#    runs-on: ubuntu-latest
+#    name: PHP-CS-Fixer
+#    steps:
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: 8.2
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: composer install
+#        run: composer install
+##      - name: CS Check
+##        run: composer cs-check
+  tests:
+    name: PHP ${{ matrix.php }} / SF ^${{ matrix.symfony }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2']
+        symfony: ['6.4.*', '7.1.*']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+#      - name: Setup MySQL
+#        run: |
+#          sudo systemctl enable mysql.service
+#          sudo systemctl start mysql.service
+#          mysql -uroot -proot -h localhost -e "CREATE DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - run: |
+          sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "${{ matrix.symfony }}"/' composer.json;
+      - run: composer update --no-interaction --no-progress --ansi
+        # @todo: create some tests!
+#      - run: composer phpunit
