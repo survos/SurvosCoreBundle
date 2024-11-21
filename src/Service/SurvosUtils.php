@@ -2,6 +2,7 @@
 
 namespace Survos\CoreBundle\Service;
 
+use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -78,13 +79,13 @@ class SurvosUtils
     public function populateObjectFromData(mixed $object, array $data, bool $throwErrorIfMissingProperty = true)
     {
         foreach ($data as $var => $value) {
-            try {
                 $this->accessor->setValue($object, $var, $value);
-            } catch (\Exception $exception) {
-                if ($throwErrorIfMissingProperty) {
-                    assert(false, "Invalid property: $var");
-                }
-            }
+//            try {
+//            } catch (\Exception $exception) {
+//                if ($throwErrorIfMissingProperty) {
+//                    assert(false, "Invalid property: $var");
+//                }
+//            }
         }
         return $object;
     }
@@ -92,7 +93,7 @@ class SurvosUtils
     public function slugify(string $code, int $maxLength = 64, bool $forceLower = true, string $separator = '_'): string
     {
         $code = str_replace(':', '', $code);
-        $slug = $this->asciiSlugger($code, separator: $separator)->slice(0, $maxLength);
+        $slug = $this->asciiSlugger->slug($code, separator: $separator)->slice(0, $maxLength);
         if ($forceLower) {
             $slug->lower();
         }
@@ -179,23 +180,23 @@ class SurvosUtils
     public function validate(null|iterable|object $obj, $msg = '')
     {
         return; // hack, problem with DictionaryValidator!
-        if (!$obj) {
-            return;
-        }
-        if (is_iterable($obj)) {
-            foreach ($obj as $item) {
-                $this->validate($item);
-            }
-        } else {
-            $errors = $this->validator->validate($obj);
-            if ($errors->count()) {
-                foreach ($errors as $error) {
-//                    dd( $msg . "\n" . (string) $error);
-                    assert(false, (string)$msg . "\n" . (string)$error);
-                }
-                assert(!$errors->count(), (string)$msg . "\n" . (string)$errors);
-            }
-        }
+//        if (!$obj) {
+//            return;
+//        }
+//        if (is_iterable($obj)) {
+//            foreach ($obj as $item) {
+//                $this->validate($item);
+//            }
+//        } else {
+//            $errors = $this->validator->validate($obj);
+//            if ($errors->count()) {
+//                foreach ($errors as $error) {
+////                    dd( $msg . "\n" . (string) $error);
+//                    assert(false, (string)$msg . "\n" . (string)$error);
+//                }
+//                assert(!$errors->count(), (string)$msg . "\n" . (string)$errors);
+//            }
+//        }
     }
 
     public static function shortClass(string|object $class): string

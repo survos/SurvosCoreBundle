@@ -19,6 +19,7 @@ trait RouteParametersTrait
     public function getUniqueIdentifiers(): array
     {
         if (defined('static::UNIQUE_PARAMETERS')) {
+            $x = [];
             foreach (constant('static::UNIQUE_PARAMETERS') as $parameter => $getter) {
                 $x[$parameter] = $this->{'get' . $getter}();
             }
