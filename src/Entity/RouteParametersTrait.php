@@ -39,7 +39,7 @@ trait RouteParametersTrait
     }
 
     /** e.g. MemberDirectory to member_directory */
-    public static function getClassnamePrefix(string $class = null): string
+    public static function getClassnamePrefix(string|null $class = null): string
     {
         if (! $class) {
             $class = get_called_class();
