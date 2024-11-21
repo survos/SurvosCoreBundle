@@ -8,12 +8,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "symfony/config": "^7.1",
-        "symfony/dependency-injection": "^7.1",
-        "symfony/http-kernel": "^7.1",
-        "symfony/serializer": "^7.1",
+        "symfony/config": "6.4 || ^7.1",
+        "symfony/dependency-injection": "6.4 || ^7.1",
+        "symfony/http-kernel": "6.4 || ^7.1",
+        "symfony/serializer": "6.4 || ^7.1",
         "twig/twig": "^3.4",
-        "symfony/string": "^7.1"
+        "symfony/string": "6.4 || ^7.1"
     },
     "autoload": {
         "psr-4": {
@@ -23,18 +23,15 @@
     "extra": {
         "branch-alias": {
             "dev-main": "1.6-dev"
-        },
-        "symfony": {
-            "require": "^7.1"
         }
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.10",
-        "symfony/browser-kit": "^7.1",
-        "symfony/framework-bundle": "^7.1",
-        "symfony/phpunit-bridge": "^7.1",
-        "symfony/twig-bundle": "^7.1",
-        "symfony/var-dumper": "^7.1"
+        "phpstan/phpstan": "^1.12",
+        "symfony/browser-kit": "6.4 || ^7.1",
+        "symfony/framework-bundle": "6.4 || ^7.1",
+        "symfony/phpunit-bridge": "6.4 || ^7.1",
+        "symfony/twig-bundle": "6.4 || ^7.1",
+        "symfony/var-dumper": "6.4 || ^7.1"
     },
     "conflict": {
         "survos/barcode-bundle": "<1.2.57",
