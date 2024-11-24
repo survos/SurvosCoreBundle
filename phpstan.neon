@@ -1,5 +1,5 @@
 parameters:
-    level: 4
+    level: 5
     inferPrivatePropertyTypeFromConstructor: true
     paths:
         - ./src/
@@ -9,6 +9,7 @@ parameters:
                   - ./vendor
 
     ignoreErrors:
+        - '#is used zero times and is not analysed.#'
         # False positive: clients are not dependencies of this project.
         -
             message: '#.*NodeDefinition::children.*#'
