@@ -5,6 +5,7 @@ namespace Survos\CoreBundle\Service;
 use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 use function Symfony\Component\String\u;
@@ -90,17 +91,28 @@ class SurvosUtils
         return $object;
     }
 
-    public function slugify(string $code, int $maxLength = 64, bool $forceLower = true, string $separator = '_'): string
+    public static function slugify(string $code, int $maxLength = 64, bool $forceLower = true, string $separator = '_'): string
     {
-        $code = str_replace(':', '', $code);
-        $slug = $this->asciiSlugger->slug($code, separator: $separator)->slice(0, $maxLength);
+//        $code = str_replace(':', '', $code);
+//        $slug = $this->asciiSlugger->slug($code, separator: $separator)->slice(0, $maxLength);
+//        if ($forceLower) {
+//            $slug->lower();
+//        }
+//        // because meili can't have periods
+////        $slug = u($slug)->replace('.','-');
+//        return strtolower($slug->toString());
+
+        $code = str_replace(':','',$code);
+        $slug = (new AsciiSlugger())->slug($code, separator: $separator)->slice(0, $maxLength);
         if ($forceLower) {
             $slug->lower();
         }
         // because meili can't have periods
 //        $slug = u($slug)->replace('.','-');
         return strtolower($slug->toString());
+
     }
+
 
     public static function humanFilesize($size, $precision = 2): string
     {
