@@ -21,6 +21,9 @@ trait RouteParametersTrait
         if (defined('static::UNIQUE_PARAMETERS')) {
             $x = [];
             foreach (constant('static::UNIQUE_PARAMETERS') as $parameter => $getter) {
+                if (class_exists($getter)) {
+                    dd($parameter, $getter);
+                }
                 $x[$parameter] = $this->{'get' . $getter}();
             }
             return $x;
@@ -29,7 +32,9 @@ trait RouteParametersTrait
         if (!method_exists($this, 'getId')) {
             throw new \Exception("you must implement getId() to use a default unique parameters in " . $this::class);
         }
-        return [strtolower((new \ReflectionClass($this))->getShortName()) . 'Id' => $this->getId()];
+        $uniqueIds =  [strtolower((new \ReflectionClass($this))->getShortName()) . 'Id' => $this->getId()];
+        dd($uniqueIds);
+        return $uniqueIds;
     }
 
     #[Groups(['rp', 'transitions', 'searchable'])]

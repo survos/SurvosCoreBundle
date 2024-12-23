@@ -7,6 +7,7 @@ use Survos\CoreBundle\Entity\RouteParametersInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use function Symfony\Component\String\u;
 
 // use Zenstruck\Metadata; maybe someday
 
@@ -24,6 +25,8 @@ class ParameterResolver implements ValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument): array
     {
+        // keep track of the history in case there's multiple params, e.g. {state}/{city}
+        static $history = [];
         // get the argument type (e.g. BookingId)
         $argumentType = $argument->getType();
 
@@ -33,21 +36,29 @@ class ParameterResolver implements ValueResolverInterface
 
         if (defined($const=$argumentType.'::UNIQUE_PARAMETERS')) {
             foreach (constant($const) as $param => $getter) {
-                if ($value = $request->attributes->get($param)) {
-                    $x[$getter] = $value;
+                if (class_exists($getter)) {
+                    // hack!!
+                    $entityParam = u($param)->before('Id')->toString();
+                    $lookupParams[$entityParam] = $history[$param];
+                } else {
+                    if ($value = $request->attributes->get($param)) {
+                        $lookupParams[$getter] = $value;
+                    }
                 }
             }
         } else {
             if (method_exists($argument, 'getUniqueIdentifiers')) {
                 // @todo: use the method...
                 $x = $argument->getUniqueIdentifiers();
+                assert(false, $argumentType . " should declare a UNIQUE_PARAMETERS constant");
             }
-//            assert(false, $argumentType . " should declare a UNIQUE_PARAMETERS constant");
         }
 
-        if (!empty($x)) {
+        if (!empty($lookupParams)) {
             $repository = $this->entityManager->getRepository($argumentType);
-            if ($entity = $repository->findOneBy($x)) {
+//            if (count($lookupParams) > 1) dd($lookupParams);
+            if ($entity = $repository->findOneBy($lookupParams)) {
+                $history[$param] = $entity;
                 return [$entity];
             }
         }
