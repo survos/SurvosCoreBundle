@@ -24,7 +24,11 @@ trait RouteParametersTrait
                 if (class_exists($getter)) {
                     dd($parameter, $getter);
                 }
-                $x[$parameter] = $this->{'get' . $getter}();
+                if (method_exists($this, $methodGetter = 'get' . $getter)) {
+                    $x[$parameter] = $this->{'get' . $getter}();
+                } else {
+                    $x[$parameter] = $this->$getter;
+                }
             }
             return $x;
         }
