@@ -37,7 +37,6 @@ trait RouteParametersTrait
             throw new \Exception("you must implement getId() to use a default unique parameters in " . $this::class);
         }
         $uniqueIds =  [strtolower((new \ReflectionClass($this))->getShortName()) . 'Id' => $this->getId()];
-        dd($uniqueIds);
         return $uniqueIds;
     }
 
