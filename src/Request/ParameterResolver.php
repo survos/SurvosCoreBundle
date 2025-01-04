@@ -49,8 +49,8 @@ class ParameterResolver implements ValueResolverInterface
         } else {
             if (method_exists($argument, 'getUniqueIdentifiers')) {
                 // @todo: use the method...
-                $x = $argument->getUniqueIdentifiers();
-                assert(false, $argumentType . " should declare a UNIQUE_PARAMETERS constant");
+                $lookupParams = $argument->getUniqueIdentifiers();
+//                assert(false, $argumentType . " should declare a UNIQUE_PARAMETERS constant");
             }
         }
 
@@ -58,7 +58,7 @@ class ParameterResolver implements ValueResolverInterface
             $repository = $this->entityManager->getRepository($argumentType);
 //            if (count($lookupParams) > 1) dd($lookupParams);
             if ($entity = $repository->findOneBy($lookupParams)) {
-                $history[$param] = $entity;
+//                $history[$param] = $entity;
                 return [$entity];
             }
         }
