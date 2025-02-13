@@ -132,7 +132,7 @@ class SurvosUtils
             return bin2hex(urldecode($match[0]));
         }, $data);
 
-        parse_str($data, $values);
+        parse_str((string)$data, $values);
 
         return array_combine(array_map('hex2bin', array_keys($values)), $values);
     }
