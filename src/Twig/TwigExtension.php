@@ -13,11 +13,22 @@ class TwigExtension extends AbstractExtension
         return [
             // If your filter generates SAFE HTML, add ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
-            new TwigFilter('get_class', fn (object $obj) => $obj::class),
+            new TwigFilter('get_class', fn(object $obj) => $obj::class),
             new TwigFilter('json_pretty', $this->json_pretty(...), ['is_safe' => ['html']]),
 
-            new TwigFilter('short_class', fn (object $obj) => (new \ReflectionClass($obj))->getShortName()),
+            new TwigFilter('short_class', $this->short_class(...)),
         ];
+    }
+
+    public function short_class(string|object $obj): string
+    {
+        try {
+            $name = (new \ReflectionClass($obj))?->getShortName();
+
+            } catch (\Exception $exception) {
+            $name = is_object($obj) ? get_class($obj) : $obj;
+        }
+        return $name;
     }
 
     public function getFunctions(): array
@@ -27,7 +38,7 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
-    public function json_pretty(object|array|null $value, ?string $wrapper='pre', array $wrapperAttributes=[]): string
+    public function json_pretty(object|array|null $value, ?string $wrapper = 'pre', array $wrapperAttributes = []): string
     {
         if (is_string($value)) {
             $data = json_decode($value);

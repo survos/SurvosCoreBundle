@@ -25,7 +25,8 @@
         "symfony/phpunit-bridge": "^6.4 || ^7.1",
         "symfony/twig-bundle": "^6.4 || ^7.1",
         "symfony/var-dumper": "^6.4 || ^7.1",
-        "symfony/asset-mapper": "^6.4 || ^7.1"
+        "symfony/asset-mapper": "^6.4 || ^7.1",
+        "symfony/console": "^7.2"
     },
     "autoload": {
         "psr-4": {

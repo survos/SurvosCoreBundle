@@ -3,6 +3,8 @@
 namespace Survos\CoreBundle\Service;
 
 use Doctrine\Common\Util\ClassUtils;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -126,6 +128,16 @@ class SurvosUtils
         return round($size, $precision) . $units[$i];
     }
 
+    static function createProgressBar(OutputInterface $io, ?int $count=null): ProgressBar
+    {
+        $progressBar = new ProgressBar($io, $count);
+        $progressBar->setFormat(
+            "<fg=white;bg=cyan> %status:-45s%</>\n%current%/%max% [%bar%] %percent:3s%%\n🏁  %estimated:-21s% %memory:21s%"
+        );
+        return $progressBar;
+    }
+
+
     public static function parseQueryString($data): array
     {
         $data = preg_replace_callback('/(?:^|(?<=&))[^=[]+/', function ($match) {
@@ -213,7 +225,7 @@ class SurvosUtils
 
     public static function shortClass(string|object $class): string
     {
-        return (new \ReflectionClass($class))->getShortName();
+        return (new \ReflectionClass($class))?->getShortName();
     }
 
     public static function dd($values)
