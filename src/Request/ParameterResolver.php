@@ -14,7 +14,8 @@ use function Symfony\Component\String\u;
 class ParameterResolver implements ValueResolverInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        // it's possible that core-bundle is included in a project (like noise) with no entity manager)
+        private ?EntityManagerInterface $entityManager=null
     )
     {
     }
@@ -25,6 +26,9 @@ class ParameterResolver implements ValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument): array
     {
+        if (!$this->entityManager) {
+            return [];
+        }
         // keep track of the history in case there's multiple params, e.g. {state}/{city}
         static $history = [];
         // get the argument type (e.g. BookingId)

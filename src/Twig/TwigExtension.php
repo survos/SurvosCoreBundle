@@ -23,7 +23,7 @@ class TwigExtension extends AbstractExtension
     public function short_class(string|object $obj): string
     {
         try {
-            $name = (new \ReflectionClass($obj))?->getShortName();
+            $name = (new \ReflectionClass($obj))->getShortName();
 
             } catch (\Exception $exception) {
             $name = is_object($obj) ? get_class($obj) : $obj;
@@ -38,9 +38,9 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
-    public function json_pretty(object|array|null $value, ?string $wrapper = 'pre', array $wrapperAttributes = []): string
+    public function json_pretty(string|object|array|null $value, ?string $wrapper = 'pre', array $wrapperAttributes = []): string
     {
-        if (is_string($value)) {
+        if (is_string($value) && json_validate($value)) {
             $data = json_decode($value);
         } else {
             $data = $value;
