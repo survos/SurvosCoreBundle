@@ -57,4 +57,13 @@ trait RouteParametersTrait
         //        $shortName = strtolower( (new \ReflectionClass(get_called_class()))->getShortName() );
         return $shortName;
     }
+
+    public function erp(): array
+    {
+        // hack, the first value
+        $rp = $this->getUniqueIdentifiers();
+        $pk = array_key_first($rp);
+        return ['entityId' => $rp[$pk]];
+
+    }
 }
