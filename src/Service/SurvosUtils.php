@@ -281,4 +281,16 @@ class SurvosUtils
         }
     }
 
+    public static function getConfigDirectory(string $appName = ''): string
+    {
+        $baseDir = match (strtolower(PHP_OS_FAMILY)) {
+            'darwin' => getenv('HOME') . '/Library/Application Support',
+            'windows' => getenv('APPDATA'),
+            default => getenv('XDG_CONFIG_HOME') ?: getenv('HOME') . '/.config'
+        };
+
+        return $appName ? "$baseDir/$appName" : $baseDir;
+    }
+
+
 }
