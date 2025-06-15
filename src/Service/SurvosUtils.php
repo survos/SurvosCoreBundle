@@ -253,7 +253,7 @@ class SurvosUtils
     }
 
     // https://stackoverflow.com/questions/4352203/any-php-function-that-will-strip-properties-of-an-object-that-are-null
-    public static function cleanNullsOfObject(&$object) {
+    public static function cleanNullsOfObject(&$object): void {
         foreach ($object as $property => &$value) {
             if (is_object($value)) {
                 self::cleanNullsOfObject($value);
@@ -279,6 +279,58 @@ class SurvosUtils
                 unset($object->$property);
             }
         }
+    }
+
+    /**
+     * Recursively remove all nulls and empty arrays from an object or array.
+     *
+     * @param mixed $data  An object (stdClass) or array (or scalar)
+     * @return mixed       The cleaned object/array, or the original scalar
+     */
+    static function removeNullsAndEmptyArrays($data): object|array
+    {
+        // If it's an object, treat it like an associative array
+        if (is_object($data)) {
+            $data = (array) $data;
+            $isObject = true;
+        } else {
+            $isObject = false;
+        }
+
+        // Only arrays need recursion
+        if (is_array($data)) {
+            $clean = [];
+
+            foreach ($data as $key => $value) {
+                // Recursively clean arrays/objects
+                if (is_array($value) || is_object($value)) {
+                    $value = self::removeNullsAndEmptyArrays($value);
+                }
+
+                // Skip nulls
+                if ($value === null) {
+                    continue;
+                }
+
+                // Skip empty arrays
+                if (is_array($value) && count($value) === 0) {
+                    continue;
+                }
+
+                // Otherwise keep it
+                $clean[$key] = $value;
+            }
+
+            // If originally an object, cast back
+            if ($isObject) {
+                return (object) $clean;
+            }
+
+            return $clean;
+        }
+
+        // Scalars (string, int, bool, etc) get returned untouched
+        return $data;
     }
 
     public static function getConfigDirectory(string $appName = ''): string
