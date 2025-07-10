@@ -317,6 +317,12 @@ class SurvosUtils
                     continue;
                 }
 
+                // skip empty strings
+                if (is_string($value) && $value === '') {
+                    continue;
+                }
+
+
                 // Otherwise keep it
                 $clean[$key] = $value;
             }
