@@ -228,7 +228,7 @@ class SurvosUtils
 
     public static function shortClass(string|object $class): string
     {
-        return (new \ReflectionClass($class))?->getShortName();
+        return (new \ReflectionClass($class))->getShortName();
     }
 
     public static function dd($values)
