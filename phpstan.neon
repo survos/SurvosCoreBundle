@@ -6,7 +6,6 @@ parameters:
 
     excludePaths:
        analyse:
-                  - ./vendor
 
     ignoreErrors:
         - '#is used zero times and is not analysed.#'
