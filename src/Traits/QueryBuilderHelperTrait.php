@@ -33,51 +33,18 @@ trait QueryBuilderHelperTrait
         return $counts;
     }
 
-    public function getApproxCount(): ?int
+    public static function format(int|float $number, int $precision = 1): string
     {
-        static $counts = null;
-
-            if (is_null($counts)) {
-                $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(
-                    "SELECT n.nspname AS schema_name,
-       c.relname AS table_name,
-       c.reltuples AS estimated_rows
-FROM pg_class c
-JOIN pg_namespace n ON n.oid = c.relnamespace
-WHERE c.relkind = 'r'
-  AND n.nspname NOT IN ('pg_catalog', 'information_schema')  -- exclude system schemas
-ORDER BY n.nspname, c.relname;");
-
-                $counts = array_combine(
-                    array_map(fn($r) => "{$r['table_name']}", $rows),
-                    array_map(fn($r) => (int)$r['estimated_rows'], $rows)
-                );
-            }
-            dump($counts);
-            $count = $counts[$this->getClassMetadata()->getTableName()]??-1;
-
-//            // might be sqlite
-//            $count =  (int) $this->getEntityManager()->getConnection()->fetchOne(
-//                'SELECT reltuples::BIGINT FROM pg_class WHERE relname = :table',
-//                ['table' => $this->getClassMetadata()->getTableName()]
-//            );
-        try {
-        } catch (\Exception $e) {
-            $count = -1;
+        if ($number >= 1_000_000) {
+            return round($number / 1_000_000, $precision) . 'm';
         }
 
-        // if no analysis
-        if ($count < 0) {
-            // Fallback to exact count
-            $count = (int)$this->createQueryBuilder('e')
-                ->select('COUNT(e.id)')
-                ->getQuery()
-                ->getSingleScalarResult();
+        if ($number >= 1_000) {
+            return round($number / 1_000, $precision) . 'k';
         }
 
-        return $count;
+        return (string) $number;
     }
-
 
     public function getCountsWithSortDoesntWork($field, string $alias = 'e', array $orderBy = []): array
     {
@@ -101,8 +68,6 @@ ORDER BY n.nspname, c.relname;");
         foreach ($results as $r) {
             $counts[$r[$field]] = $r['count'];
         }
-        dd($results);
-
         return $counts;
     }
 

@@ -2,6 +2,7 @@
 
 namespace Survos\CoreBundle\Twig;
 
+use Survos\CoreBundle\Service\SurvosUtils;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -14,6 +15,7 @@ class TwigExtension extends AbstractExtension
             // If your filter generates SAFE HTML, add ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             new TwigFilter('get_class', fn(object $obj) => $obj::class),
+            new TwigFilter('format_large_number', fn(int $x) => SurvosUtils::formatLargeNumber($x)),
             new TwigFilter('json_pretty', $this->json_pretty(...), ['is_safe' => ['html']]),
 
             new TwigFilter('short_class', $this->short_class(...)),

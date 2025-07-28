@@ -17,11 +17,22 @@ class SurvosUtils
     public function __construct(
         private ParameterBagInterface $bag,
         private ?PropertyAccessorInterface $accessor = null,
-        private ?SluggerInterface $asciiSlugger = null
+        private ?SluggerInterface $asciiSlugger = null,
     ) {
     }
 
+    public static function formatLargeNumber(int|float $number, int $precision = 1): string
+    {
+        if ($number >= 1_000_000) {
+            return round($number / 1_000_000, $precision) . 'm';
+        }
 
+        if ($number >= 1_000) {
+            return round($number / 1_000, $precision) . 'k';
+        }
+
+        return (string) $number;
+    }
     /**
      *
      * Remove projectDir from path, for easier reading.
