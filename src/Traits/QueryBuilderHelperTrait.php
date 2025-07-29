@@ -5,6 +5,7 @@ namespace Survos\CoreBundle\Traits;
 
 trait QueryBuilderHelperTrait
 {
+    #[\Deprecated('use workflowHelper:: instead')]
     public function getCounts(string $field): array
     {
         $results = $this->createQueryBuilder('s')
