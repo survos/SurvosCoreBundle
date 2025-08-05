@@ -26,7 +26,8 @@
         "symfony/twig-bundle": "^7.3",
         "symfony/var-dumper": "^7.3",
         "symfony/asset-mapper": "^7.3",
-        "symfony/console": "^7.2"
+        "symfony/console": "^7.2",
+        "easycorp/easyadmin-bundle": "^4.24"
     },
     "autoload": {
         "psr-4": {
