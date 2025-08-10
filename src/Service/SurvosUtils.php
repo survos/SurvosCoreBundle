@@ -11,6 +11,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 use function Symfony\Component\String\u;
+use \SplFileObject as SplFileObject;
 
 class SurvosUtils
 {
@@ -359,6 +360,25 @@ class SurvosUtils
         };
 
         return $appName ? "$baseDir/$appName" : $baseDir;
+    }
+
+    static public function readNdjsonLd(string $path): \Generator {
+        // hack, small files only
+        $f = file($path);
+//        $f = new SplFileObject($path, 'r');
+//        $f->setFlags(SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
+        foreach ($f as $line) {
+            if ($line === null || $line === '' || ltrim($line)[0] === '#') {
+                continue; // skip blanks/comments
+            }
+            $row = json_decode($line, true, 512, JSON_THROW_ON_ERROR);
+            try {
+                yield $row;
+            } catch (\JsonException $e) {
+                // handle or log and continue
+                error_log("Bad JSON line: " . $e->getMessage());
+            }
+        }
     }
 
 
