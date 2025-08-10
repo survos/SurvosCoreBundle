@@ -41,7 +41,8 @@ abstract class BaseCrudController extends AbstractCrudController
 //            ->remove(Crud::PAGE_INDEX, Action::NEW)
 //            ->remove(Crud::PAGE_INDEX, Action::DELETE)
 //            ->remove(Crud::PAGE_INDEX, Action::EDIT)
-            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+//            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ;
     }
 
 
