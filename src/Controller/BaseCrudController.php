@@ -47,10 +47,11 @@ abstract class BaseCrudController extends AbstractCrudController
             ->setPermission(Action::NEW, 'ROLE_ADMIN')
             ->setPermission(Action::EDIT, 'ROLE_ADMIN')
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
+            ->setPermission(Action::BATCH_DELETE, 'ROLE_ADMIN');
 //            ->remove(Crud::PAGE_INDEX, Action::NEW)
 //            ->remove(Crud::PAGE_INDEX, Action::DELETE)
 //            ->remove(Crud::PAGE_INDEX, Action::EDIT)
-            ;
+            //->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
 
