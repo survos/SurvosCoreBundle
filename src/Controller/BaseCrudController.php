@@ -64,6 +64,8 @@ abstract class BaseCrudController extends AbstractCrudController
                 ->add(ChoiceFilter::new('marking')
                     ->setChoices($this->getPlaces())
                 );
+        } else {
+            return $filters;
         }
     }
 
